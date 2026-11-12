@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens lifted from the original uonmdy.edu.mm theme
+ * (JoomlArt "JA University" template, blue theme).
+ */
+@theme {
+  --color-navy: #0c426f;
+  --color-navy-line: #1f537e;
+  --color-navy-deep: #09355a;
+  --color-nav-active: #1b5280;
+  --color-nav-hover: #1b212a;
+  --color-navhelper: #0a3966;
+  --color-footer: #083158;
+  --color-gold: #e09b0f;
+  --color-accent: #3366ff;
+  --color-link: #205f93;
+  --color-body: #666666;
+  --color-cream: #efece1;
+
+  --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+/*
+ * Base element styles live in `@layer base` so Tailwind utilities can override
+ * them (unlayered rules would otherwise win the cascade over every utility).
+ */
+@layer base {
+  html {
+    font-size: 13px;
+  }
+
+  body {
+    background: #ffffff;
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  a {
+    color: var(--color-link);
+    text-decoration: none;
+  }
+
+  /* Intentionally inert links (no href) keep the pointer affordance of the
+     original site without navigating anywhere. */
+  a:not([href]) {
+    cursor: pointer;
+  }
+
+  a:hover {
+    color: var(--color-nav-active);
+    text-decoration: none;
+  }
+}
+
+/* Shared layout wrapper — original template used a 1170px container */
+.uon-container {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1170px;
+  padding-inline: 15px;
+}
+
+/* Section headings (module-title in the original theme) */
+.uon-module-title {
+  color: #555555;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.uon-module-title-light {
+  color: #d9dee4;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+}
+
+/* Bullet lists used by "Most Read & Viewed" */
+.uon-bullet-list li a {
+  background: none;
+  padding-left: 10px;
+  position: relative;
+}
+
+.uon-bullet-list li a::before {
+  color: #9aa0a6;
+  content: "\25B8";
+  left: 0;
+  position: absolute;
+}
+
+/* Visitors counter digits */
+.uon-digit {
+  background: #1b5280;
+  border-radius: 2px;
+  color: #ffffff;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  margin-right: 1px;
+  padding: 5px 3px;
+}
+
+/* Fade used by the photo-gallery ticker */
+@keyframes uon-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.uon-fade-in {
+  animation: uon-fade-in 0.6s ease both;
+}
+
+/* Mega menu flyout */
+.uon-mega {
+  background: #ffffff;
+  border-top: 3px solid var(--color-nav-active);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+  left: 0;
+  min-width: 230px;
+  opacity: 0;
+  padding: 8px 0;
+  position: absolute;
+  top: 100%;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+  visibility: hidden;
+  z-index: 40;
+}
+
+.group:hover > .uon-mega {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.uon-mega a {
+  color: #555555;
+  display: block;
+  font-size: 12px;
+  padding: 7px 18px;
+  white-space: nowrap;
+}
+
+.uon-mega a:hover {
+  background: #f2f6fa;
+  color: var(--color-nav-active);
+}
