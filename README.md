@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# University of Nursing, Mandalay — homepage recreation
 
-## Getting Started
+A static rebuild of the `uonmdy.edu.mm` home page using Next.js 15 (App Router) and Tailwind CSS v4.
 
-First, run the development server:
+This is a **front-end recreation only**. It never talks to the live site, and every link that would lead there is intentionally inert.
+
+## Stack
+
+- Next.js 15 / React 19, App Router
+- Tailwind CSS v4 — `@import "tailwindcss"` plus a `@theme` token block in `app/globals.css`
+- TypeScript
+- `next/image` serving local assets from `public/images/`
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build   # production build
+npm run lint    # eslint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Structure
 
-## Learn More
+| Path | Purpose |
+| --- | --- |
+| `app/layout.tsx` | Metadata and the global stylesheet |
+| `app/page.tsx` | Composes the page sections |
+| `app/globals.css` | Design tokens taken from the original theme (JoomlArt "JA University", blue variant), the `@layer base` element styles, and the `.uon-*` component helpers |
+| `lib/data.ts` | All page content: nav, slides, announcements, news, rectors, visitor and campus stats, gallery images |
+| `components/Header.tsx` | Navy header, logo, search form |
+| `components/MainNav.tsx` | Hover mega-menu and the login sidebar trigger |
+| `components/LoginSidebar.tsx` | Off-canvas login form, closed by Escape or the backdrop |
+| `components/HeroSlider.tsx` | Four-slide crossfade with playback controls |
+| `components/Announcements.tsx` | Three-column announcement grid |
+| `components/SpotlightOne.tsx` | Latest News, Rectors, Most Read, visitors counter |
+| `components/PhotoGallery.tsx` | Paged 62-image gallery |
+| `components/SpotlightTwo.tsx` | Newsletter, contact details, social links |
+| `components/NavHelper.tsx` | Breadcrumb and animated campus stat cards |
+| `components/Footer.tsx` | Copyright line |
 
-To learn more about Next.js, take a look at the following resources:
+## Notes on the rebuild
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Colours, spacing and type are tokenised from the original template, so the 1170px container width and 13px root font size are preserved.
+- **All outbound links are inert.** Nav items, announcements and news entries carry no `href`; only the `next/image` assets, the `mailto:` address and the Facebook page remain real.
+- Base element styles live in `@layer base` so Tailwind utilities can override them. An unlayered `a { color: … }` rule outranks every `text-*` utility, which silently broke the nav colours.
+- Dropdowns open on `:hover` only. `:focus-within` was removed because clicking a menu item pinned its flyout open.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Rights
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Layout and imagery belong to the University of Nursing, Mandalay. This repository is a non-commercial front-end exercise.
